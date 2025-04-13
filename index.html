@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bruno Browser</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; }
+    header { background: #333; color: white; padding: 10px; text-align: center; font-size: 1.2em; }
+    nav { display: flex; padding: 5px; background: #f1f1f1; }
+    input[type="text"] { flex: 1; padding: 8px; font-size: 1em; }
+    button { padding: 8px 10px; margin-left: 5px; font-size: 1em; }
+    iframe { flex: 1; border: none; width: 100%; }
+    footer { background: #eee; padding: 8px; text-align: center; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <header>Bruno Browser</header>
+  <nav>
+    <button onclick="goBack()">⏪</button>
+    <button onclick="refreshPage()">🔄</button>
+    <input type="text" id="url" placeholder="Enter URL and hit Enter" onkeydown="handleKey(event)">
+  </nav>
+  <iframe id="webview" src="https://www.google.com"></iframe>
+  <footer>Bruno Browser v1.0 &mdash; A light and fast browser made for x86 Android by Bruno.</footer>
+
+  <script>
+    const iframe = document.getElementById('webview');
+    const input = document.getElementById('url');
+
+    function handleKey(event) {
+      if (event.key === 'Enter') {
+        let url = input.value.trim();
+        if (!url.startsWith('http')) {
+          url = 'https://' + url;
+        }
+        iframe.src = url;
+      }
+    }
+
+    function refreshPage() {
+      iframe.src = iframe.src;
+    }
+
+    function goBack() {
+      iframe.contentWindow.history.back();
+    }
+  </script>
+</body>
+</html>
